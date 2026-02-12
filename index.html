@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cursed Carnival</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="cabinet">
+  <div id="paytable">
+  </div>
+
+  <h1 id="gameTitle">Cursed Carnival</h1>
+
+  <div id="reels">
+    <div class="reel" id="reel0"></div>
+    <div class="reel" id="reel1"></div>
+    <div class="reel" id="reel2"></div>
+    <div class="reel" id="reel3"></div>
+    <div class="reel" id="reel4"></div>
+  </div>
+
+  <div id="controls">
+    <div class="info">
+      <span>Créditos: <b id="credits">5000</b></span>
+      <span>Apuesta: <b id="bet">10</b></span>
+      <span>Ganancia: <b id="win">0</b></span>
+    </div>
+
+    <div class="bet-controls">
+      <button id="betMinus">-</button>
+      <button id="spin">SPIN</button>
+      <button id="betPlus">+</button>
+    </div>
+  </div>
+
+</div>
+<audio id="bgMusic" src="assets/terror-music.mp3"></audio>
+<audio id="spinSound" src="assets/spin.mp3"></audio>
+<audio id="winSound" src="assets/win.mp3"></audio>
+<audio id="coinSound" src="assets/coin.mp3"></audio>
+
+<script src="script.js"></script>
+</body>
+</html>
