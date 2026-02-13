@@ -1,0 +1,483 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 10px 0;
+  min-height: 100vh;
+  background: url("assets/bg.jpg") no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: Arial, sans-serif;
+  color: #ff4444;
+  overflow-x: hidden;
+}
+
+#cabinet {
+  width: 100%;
+  max-width: 480px;
+  padding: 15px;
+  border: 4px solid darkred;
+  box-shadow: 0 0 40px red;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: relative;
+
+  /* Fondo madera mucho más oscura */
+  background: 
+    linear-gradient(rgba(0,0,0,0.85), rgba(10,0,0,0.9)), /* oscurecer fuerte */
+    url("assets/wood-old.jpg") no-repeat center center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+/* HUMO ANIMADO - varias capas */
+#cabinet::before,
+#cabinet::after {
+  content: "";
+  position: absolute;
+  top: -30%;
+  left: -30%;
+  width: 160%;
+  height: 160%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0.7) 70%);
+  filter: blur(25px);
+  z-index: 1;
+}
+
+#cabinet::after {
+  background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.8) 70%);
+  animation: smokeMove2 35s infinite linear;
+}
+
+#cabinet::before {
+  animation: smokeMove1 25s infinite linear;
+}
+
+@keyframes smokeMove1 {
+  0% { transform: translate(0%, 0%) rotate(0deg) scale(1); }
+  50% { transform: translate(12%, 6%) rotate(3deg) scale(1.1); }
+  100% { transform: translate(0%, 0%) rotate(0deg) scale(1); }
+}
+
+@keyframes smokeMove2 {
+  0% { transform: translate(0%, 0%) rotate(0deg) scale(1); }
+  50% { transform: translate(-10%, 8%) rotate(-2deg) scale(1.05); }
+  100% { transform: translate(0%, 0%) rotate(0deg) scale(1); }
+}
+
+/* Aseguramos que el contenido quede encima del humo */
+#cabinet > * {
+  position: relative;
+  z-index: 2;
+}
+
+
+/* PAYTABLE */
+#paytable {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1px;
+  background: rgba(0,0,0,0.7);
+  border: 2px solid darkred;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  animation: glow 3s infinite alternate;
+}
+
+.pay-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px;
+  font-size: 13px;
+  border-radius: 6px;
+  border: 1px solid darkred;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.pay-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px red;
+}
+
+.pay-item img {
+  width: 40px;
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 10px red inset; }
+  to { box-shadow: 0 0 30px crimson inset; }
+}
+
+/* REELS */
+#reels {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-grow: 1;
+  margin: -45px 0 0 0;
+  width: 100%;
+  gap: 1px;
+}
+
+.reel {
+  flex: 1;
+  aspect-ratio: 1 / 2.8;
+  background: #111;
+  border: 3px solid red;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+   display: flex;
+  flex-direction: column;
+  justify-content: space-between;  /* agrega espacio vertical entre símbolos */
+}
+
+.symbol {
+  width: 100%;
+  height: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.symbol img {
+  width: 100%;
+  max-width: 110px;
+}
+
+.win-symbol {
+  animation: glowWin 0.6s infinite alternate;
+}
+
+@keyframes glowWin {
+  from { box-shadow: 0 0 5px gold; }
+  to { box-shadow: 0 0 20px gold; transform: scale(1.05); }
+}
+
+/* CONTROLES */
+#controls {
+  background: linear-gradient(to top,#000,#200000);
+  padding: 15px;
+  border-top: 3px solid red;
+  box-shadow: 0 -10px 30px rgba(255,0,0,0.3);
+}
+
+.info {
+  display: flex;
+  justify-content: space-around;
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.bet-controls {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+}
+
+.bet-controls button {
+  position: relative;
+  padding: 12px 25px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ff4444, #8b0000);
+  border: 4px solid #ffaaaa;
+  box-shadow: inset -3px -3px 6px rgba(0,0,0,0.5),
+              inset 3px 3px 6px rgba(255,255,255,0.2),
+              0 3px 6px rgba(0,0,0,0.6);
+  font-size: 24px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Efecto 3D al presionar */
+.bet-controls button:active {
+  transform: translateY(2px);
+  box-shadow: inset -1px -1px 4px rgba(0,0,0,0.5),
+              inset 1px 1px 4px rgba(255,255,255,0.2),
+              0 1px 3px rgba(0,0,0,0.6);
+}
+
+/* Luces giratorias alrededor de cada botón */
+.bet-controls button::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, gold, orange, gold, orange);
+  animation: spinLightsSmall 2.5s linear infinite;
+  z-index: 0;
+  opacity: 0.5;
+}
+
+/* Texto encima de las luces */
+.bet-controls button span {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes spinLightsSmall {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+button {
+  padding: 12px 35px;
+  background: black;
+  color: red;
+  border: 3px solid red;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.2s;
+  border-radius: 6px;
+}
+
+button:hover {
+  background: darkred;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px red;
+}
+
+#spin {
+  position: relative;
+  padding: 0;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ff4444, #8b0000);
+  border: 6px solid #ffaaaa;
+  box-shadow: inset -4px -4px 10px rgba(0,0,0,0.5),
+              inset 4px 4px 10px rgba(255,255,255,0.2),
+              0 4px 10px rgba(0,0,0,0.6);
+  cursor: pointer;
+  font-size: 22px;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+}
+
+/* Efecto 3D al presionar */
+#spin:active {
+  transform: translateY(4px);
+  box-shadow: inset -2px -2px 6px rgba(0,0,0,0.5),
+              inset 2px 2px 6px rgba(255,255,255,0.2),
+              0 2px 5px rgba(0,0,0,0.6);
+}
+
+/* Luces animadas alrededor */
+#spin::before {
+  content: "";
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, gold, orange, gold, orange);
+  animation: spinLights 2s linear infinite;
+  z-index: 0;
+  opacity: 0.7;
+}
+
+#spin span {
+  position: relative;
+  z-index: 1; /* para que el texto quede arriba de las luces */
+}
+
+@keyframes spinLights {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+#spin:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px red;
+}
+
+#spin:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* WIN POP */
+.win-pop {
+  animation: popWin 0.3s ease;
+}
+
+@keyframes popWin {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); color: gold; }
+  100% { transform: scale(1); }
+}
+
+/* REEL DEPTH */
+.reel::before,
+.reel::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 20%;
+  left: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.reel::before {
+  top: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+}
+
+.reel::after {
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+}
+
+#gameTitle {
+  font-family: 'Creepster', cursive;
+  font-size: 4rem;
+  color: red;
+  text-align: center;
+  margin-top: -10px;
+  animation: flicker 1s infinite;
+  text-shadow:
+    0 0 5px crimson,
+    0 0 10px darkred,
+    0 0 20px red,
+    0 0 40px darkred;
+}
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+  20%, 22%, 24%, 55% { opacity: 0.5; }
+}
+
+.payline-highlight {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: gold;
+  box-shadow: 0 0 15px gold, 0 0 25px orange;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.win-box {
+  border: 3px solid gold;
+  border-radius: 12px;
+  box-shadow: 0 0 15px gold, 0 0 25px orange;
+  animation: pulseGold 1s infinite alternate;
+}
+
+@keyframes pulseGold {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+
+.pay-item.light-up {
+  box-shadow: 0 0 20px gold, 0 0 40px orange;
+  transform: scale(1.05);
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.win-effect {
+  animation: sinisterPulse 1.8s ease-in-out;
+}
+
+@keyframes sinisterPulse {
+  0% {
+    box-shadow: 0 0 20px darkred;
+  }
+  50% {
+    box-shadow: 0 0 60px red, 0 0 80px darkred;
+  }
+  100% {
+    box-shadow: 0 0 20px darkred;
+  }
+}
+
+#win {
+  transition: color 0.3s ease;
+}
+
+.win-active {
+  color: darkred;
+  text-shadow: 0 0 10px red, 0 0 20px darkred;
+}
+
+.win-final {
+  color: crimson;
+  text-shadow: 0 0 20px red, 0 0 40px red;
+}
+
+#bigWinOverlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0.98) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 9999;
+}
+
+#bigWinOverlay.show {
+  opacity: 1;
+}
+
+.big-win-text {
+  font-size: 70px;
+  color: #8b0000;
+  letter-spacing: 8px;
+  text-shadow:
+    0 0 10px black,
+    0 0 20px darkred,
+    0 0 40px red;
+  animation: glitchTerror 1.2s infinite;
+}
+
+@keyframes glitchTerror {
+  0% { transform: translate(0,0); }
+  20% { transform: translate(-2px,2px); }
+  40% { transform: translate(2px,-2px); }
+  60% { transform: translate(-1px,1px); }
+  80% { transform: translate(1px,-1px); }
+  100% { transform: translate(0,0); }
+}
+
+.big-win-amount {
+  font-size: 50px;
+  color: white;
+  margin-top: 30px;
+  text-shadow: 0 0 15px red, 0 0 30px darkred;
+}
